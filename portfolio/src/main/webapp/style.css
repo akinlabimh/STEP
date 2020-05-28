@@ -8,6 +8,41 @@
   margin-top: 20px;
 }
 
+
+li {
+  display:inline;
+  text-align: center;
+  /*background-color: #4dc3ff;*/
+  background-color: #362d2d;
+  float: left;
+}
+
+a {
+  display: block;
+  width: 100px;
+  padding: 8px;
+  color: #4dc3ff;
+  display:inline;
+}
+
+a img {
+  background-color: #4dc3ff;
+}
+
+body {
+    background-color: #4dc3ff;
+    font-family: "Lucida Console", Courier, monospace;
+}
+
+#linx {
+    background-color: #4dc3ff
+}
+
+img {
+    background-color: #4dc3ff
+}
+
 #navigation {
-    
+    align: center;
+    text-align: center;
 }
