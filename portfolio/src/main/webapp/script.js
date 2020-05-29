@@ -26,3 +26,27 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+function addRandomSurvivor() {
+  const seasons =
+      ['Borneo', 'Australia', 'Africa', 'Marquesas'];
+
+  // Pick a random greeting.
+  const season = seasons[Math.floor(Math.random() * seasons.length)];
+  var vid;
+  if (season == 0 || season == 'Borneo') {
+        var x = document.getElementById("one");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+  }
+
+  // Add it to the page.
+  const seasonContainer = document.getElementById('video-container');
+  seasonContainer.innerText = season;
+}
+
+
+
