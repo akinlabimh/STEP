@@ -27,6 +27,29 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
+fetch(data)
+
+function addQuoteToDomx(data) {
+  console.log('Adding quote to dom: ' + data);
+
+  const quoteContainer = document.getElementById('greeting-container');
+  quoteContainer.innerText = data;
+}
+
+function addQuoteToDom(data) {
+  fetch('/data').then(response => response.text()).then((data) => {
+    document.getElementById('greeting-container').innerText = data;
+  });
+}
+
+
+
+function getRandomQuoteUsingArrowFunctions() {
+  fetch('/random-quote').then(response => response.text()).then((quote) => {
+    document.getElementById('greeting-container').innerText = quote;
+  });
+}
+
 
 
 
