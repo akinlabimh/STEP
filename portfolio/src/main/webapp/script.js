@@ -12,9 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+function loadComments() {
+  fetch('/load').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      //taskListElement.appendChild(createComment("\n"));
+      ///taskListElement.appendChild(createComment(task.text));
+      //response.getWriter().println(task.text);
+    })
+  });
+}
+
+/** Creates an element that represents a task, including its delete button. */
+function createComment(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
 /**
  * Adds a random greeting to the page.
- */
+ 
 function addRandomGreeting() {
   const greetings =
       ['Whats up?', 'lmao', 'this is fun so far', 'cant wait for CSS'];
@@ -26,8 +45,6 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
-
-fetch(data)
 
 function addQuoteToDomx(data) {
   console.log('Adding quote to dom: ' + data);
@@ -42,14 +59,14 @@ function addQuoteToDom(data) {
   });
 }
 
-
+function getComments(data) {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('greeting-container').innerText = quote;
+  });
+}
 
 function getRandomQuoteUsingArrowFunctions() {
   fetch('/random-quote').then(response => response.text()).then((quote) => {
     document.getElementById('greeting-container').innerText = quote;
   });
-}
-
-
-
-
+}*/

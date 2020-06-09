@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="loadComments()">
     <div id="content">
       <h1>Akin's Portfolio</h1>
       <div id="navigation">
@@ -26,9 +26,20 @@
         so far!
       </p>
       <img src="images/IMG_8458.jpeg" alt="Iconic Photo" style="width:350px;height:400px;">
-      <p>Click here to get a random message:</p>
-      <button onclick="addQuoteToDom()">Hello</button>
-      <div id="greeting-container"></div>
+      <br/><br/>
+      <!--<p>Click here to get a random message:</p>
+      <button onclick="getComments()">Hello</button>
+      <!--<div id="greeting-container"></div>-->
+
+
+      <form method="POST" action="/add">
+            <p>Leave a comment below!</p>
+            <textarea name="text-input"></textarea>
+            <br/><br/>
+            <input type="submit"/>
+      </form>
+      <ul id="greeting-container"><br/></ul>
+      
     </div>
   </body>
 </html>

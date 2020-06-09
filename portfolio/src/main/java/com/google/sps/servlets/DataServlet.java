@@ -21,28 +21,152 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.gson.Gson;
+import com.google.sps.data.Task;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+@WebServlet("/add")
 public class DataServlet extends HttpServlet {
 
-  private List<String> messages;
+  //private List<String> messages;
+  //private List<String> comments = new ArrayList<>();
+
+  
 
   @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    // Get the input from the form.
+    String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("text-input", text);
+    taskEntity.setProperty("timestamp", timestamp);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    //PreparedQuery results = datastore.prepare(query);
+    datastore.put(taskEntity);
+    //response.getWriter().println(text);
+    response.sendRedirect("/index.html");
+  }
+}
+
+    /**response.sendRedirect("/index.html");
+    //taskEntity.setProperty("timestamp", timestamp);
+    //boolean upperCase = Boolean.parseBoolean(getParameter(request, "upper-case", "false"));
+    //boolean sort = Boolean.parseBoolean(getParameter(request, "sort", "false"));
+
+    // Convert the text to upper case.
+    //if (upperCase) {
+    //  text = text.toUpperCase();
+    //}
+
+    // Break the text into individual words.
+    //String[] words = text.split("\\s*,\\s*");
+
+    // Sort the words.
+    //if (sort) {
+    //  Arrays.sort(words);
+    //}
+
+    List<Task> tasks = new ArrayList<>();
+    
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String oldTitle = (String) entity.getProperty("text-input");
+      long oldTimestamp = (long) entity.getProperty("timestamp");
+
+      Task task = new Task(id, oldTitle, oldTimestamp);
+      tasks.add(task);
+      comments.add(oldTitle);
+    }
+
+    Gson gson = new Gson();
+
+    response.setContentType("text/html;");
+    for (String c: comments) {
+        response.getWriter().println(c);
+    }
+    //response.sendRedirect("/index.html");
+    
+    // Respond with the result.
+    //response.setContentType("text/html;");
+    //response.getWriter().println(Arrays.toString(tasks));
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
+
+  /**@Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String title = request.getParameter("title");
+    long timestamp = System.currentTimeMillis();
+
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("title", title);
+    taskEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    response.sendRedirect("/index.html");
+  }
+
+  
+
+  /**@Override
   public void init() {
     messages = new ArrayList<>();
-    messages.add("lol");
+    /**messages.add("lol");
     messages.add("lmao");
     messages.add("haha");
     /**String json = convertToJson(messages);
-    response.getWriter().println(json);*/
+    response.getWriter().println(json);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "text-input", "");
+    //response.getWriter().println(text);
+
+    // Break the text into individual words.
+    String[] words = text.split("\\s*,\\s*");
+
+    //for (w : words) {
+    //    messages.add(w);
+    //}
+
+    String json = convertToJson(messages);
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println(Arrays.toString(words));
   }
 
   private String convertToJson(List<String> messages) {
     String json = "{";
-    for (int i = 0; i < messages.size()-1; i++) {
+    for (int i = 1; i < messages.size()-1; i++) {
         json += messages.get(i) + ", ";
     }
     json += messages.get(messages.size()-1);
@@ -50,13 +174,25 @@ public class DataServlet extends HttpServlet {
     return json;
   }
 
-  /**@Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hey, Akin!");
-  } */
+
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
 
   @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //doPost(request, response);
+    String text = getParameter(request, "text-input", "");
+    response.getWriter().println(text);
+    response.setContentType("text/html;");
+    response.getWriter().println("Hey, Akin!");
+  } 
+
+  /**@Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String msg = messages.get((int) (Math.random() * messages.size()));
 
@@ -64,8 +200,8 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
 
     /**response.setContentType("text/html;");
-    response.getWriter().println(msg);*/
-  }
-}
+    response.getWriter().println(msg);
+  } */
+
 
 
