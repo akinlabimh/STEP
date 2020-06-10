@@ -43,6 +43,7 @@ public class DataServlet extends HttpServlet {
 
   //private List<String> messages;
   //private List<String> comments = new ArrayList<>();
+  public static int ncInput;
 
   
 
@@ -51,13 +52,23 @@ public class DataServlet extends HttpServlet {
     //Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     // Get the input from the form.
     String text = request.getParameter("text-input");
-    long timestamp = System.currentTimeMillis();
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("text-input", text);
-    taskEntity.setProperty("timestamp", timestamp);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    //PreparedQuery results = datastore.prepare(query);
-    datastore.put(taskEntity);
+    try {
+        int plzjustwork = Integer.parseInt(request.getParameter("nclol"));
+        ncInput = plzjustwork;
+        System.out.println(plzjustwork);
+    } catch (NumberFormatException e) {
+        ncInput = -1;
+    }
+    if (text.length() > 0) {
+        
+        long timestamp = System.currentTimeMillis();
+        Entity taskEntity = new Entity("Task");
+        taskEntity.setProperty("text-input", text);
+        taskEntity.setProperty("timestamp", timestamp);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        //PreparedQuery results = datastore.prepare(query);
+        datastore.put(taskEntity);
+    }
     //response.getWriter().println(text);
     response.sendRedirect("/index.html");
   }

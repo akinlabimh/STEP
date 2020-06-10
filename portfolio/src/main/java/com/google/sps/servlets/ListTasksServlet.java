@@ -48,30 +48,25 @@ public class ListTasksServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     
-    try {
-      numComments = Integer.parseInt(request.getParameter("num-comments")); //getNumComments(request);
-    } catch (NumberFormatException e) {
-      //System.err.println("Could not convert to int: " + ncString);
-      numComments = -1;
-    }
-
+    
     //int  = //3; //getPlayerChoice(request);
     //response.setContentType("text/html");
     //response.getWriter().println("Please enter how many comments you want to see");
 
     List<Task> tasks = new ArrayList<>();
     int i = 0;
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String title = (String) entity.getProperty("text-input");
-      long timestamp = (long) entity.getProperty("timestamp");
+    if (DataServlet.ncInput != 0) {
+        for (Entity entity : results.asIterable()) {
+        long id = entity.getKey().getId();
+        String title = (String) entity.getProperty("text-input");
+        long timestamp = (long) entity.getProperty("timestamp");
 
-      Task task = new Task(id, title, timestamp);
-      tasks.add(task);
-      i++;
-      if (i == numComments) {
-          break;
-      }
+        Task task = new Task(id, title, timestamp);
+        tasks.add(task);
+        //System.out.println(DataServlet.ncInput);
+        i++;
+        if (i == DataServlet.ncInput) {break;}
+        }
     }
 
     Gson gson = new Gson();

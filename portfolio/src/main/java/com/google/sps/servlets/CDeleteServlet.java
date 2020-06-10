@@ -34,8 +34,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+@WebServlet("/delete-data")
+public class CDeleteServlet extends HttpServlet {
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    long id = Long.parseLong(request.getParameter("id"));
+
+    Key taskEntityKey = KeyFactory.createKey("Task", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.delete(taskEntityKey);
+  }
+}
+
+/** Servlet that returns some example content. TODO: modify this file to handle comments data 
 @WebServlet("/reload")
 public class PartialServlet extends HttpServlet {
   public int numComments = 0;
@@ -50,7 +65,8 @@ public class PartialServlet extends HttpServlet {
     
     try {
         System.out.println(request);
-      System.out.println(request.getParameter("num-comments"));
+      System.out.println(request.getParameter("nclol"));
+      System.out.println(request.getParameter("test"));
       numComments = Integer.parseInt(request.getParameter("num-comments"));//getNumComments(request);//Integer.parseInt(request.getParameter("num-comments").value); //getNumComments(request);
     } catch (NumberFormatException e) {
       //System.err.println("Could not convert to int: " + ncString);
@@ -99,4 +115,4 @@ public class PartialServlet extends HttpServlet {
 
     return playerChoice;
   }
-}
+}*/

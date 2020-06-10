@@ -101,3 +101,15 @@ li {
   list-style-type: none;
 
 }
+
+#commentselector {
+    padding: 0px;
+    color:#4dc3ff;
+}
+
+#commentselector > li {
+    padding: 0px;
+    background-color:#4dc3ff;
+    text-align: center;
+    box-align: center;
+}

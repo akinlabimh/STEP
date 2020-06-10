@@ -36,21 +36,30 @@
             <p>Leave a comment below!</p>
             <textarea name="text-input"></textarea>
             <br/><br/>
+            <ul id="commentselector">
+                <li><p>How many comments do you want to load?     &nbsp;</p></li>
+                <li><textarea name="nclol" style="width:33px;height:40px;"></textarea></li>
+            </ul>
+            <br/><br/>
             <input type="submit"/>
       </form>
-      <br><br>
-      <form method="GET" action="/load">
-        <select name="num-comments" id="num-comments" onchange="loadLimitedComments()">
+      
+      <!--<form method="POST" action="/reload">
+        <select name="num-comments" id="num-comments" onchange="loadComments()">
             <option value="0">Select Number of Comments to Show</option>
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
         </select>
         <br><br>
-        <input type="submit" value="Submit">
-      </form>
+        <input type="submit" id = "test" value="Submit">
+      </form>-->
       <ul id="greeting-container"><br/></ul>
-      
+      <!--<form method="POST" action="/add">
+            <input type="submit"/>
+      </form>
+      <!--<button onclick="deleteComments()" method="POST">Hello</button>-->
+      <br/><br/>
     </div>
   </body>
 </html>

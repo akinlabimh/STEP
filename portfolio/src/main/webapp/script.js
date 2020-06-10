@@ -24,7 +24,19 @@ function loadComments() {
   });
 }
 
-function loadLimitedComments() {
+function deleteComments() {
+  fetch('/delete-data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
+    tasks.forEach((task) => {
+      taskListElement.removeChild();
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });
+}
+
+/*function loadLimitedComments() {
   fetch('/reload').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('greeting-container');
     //var nc = document.getElementById("num-comments").value;
@@ -34,7 +46,7 @@ function loadLimitedComments() {
       //taskListElement.appendChild(createComment(nc));
     })
   });
-}
+}*/
 
 /*
 function loadLimitedComments() {
