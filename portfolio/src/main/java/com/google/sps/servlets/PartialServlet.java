@@ -36,8 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/load")
-public class ListTasksServlet extends HttpServlet {
+@WebServlet("/reload")
+public class PartialServlet extends HttpServlet {
   public int numComments = 0;
 
   @Override
@@ -49,11 +49,15 @@ public class ListTasksServlet extends HttpServlet {
 
     
     try {
-      numComments = Integer.parseInt(request.getParameter("num-comments")); //getNumComments(request);
+        System.out.println(request);
+      System.out.println(request.getParameter("num-comments"));
+      numComments = Integer.parseInt(request.getParameter("num-comments"));//getNumComments(request);//Integer.parseInt(request.getParameter("num-comments").value); //getNumComments(request);
     } catch (NumberFormatException e) {
       //System.err.println("Could not convert to int: " + ncString);
-      numComments = -1;
+      numComments = Integer.MAX_VALUE - 1000;
     }
+
+    System.out.println(numComments);
 
     //int  = //3; //getPlayerChoice(request);
     //response.setContentType("text/html");

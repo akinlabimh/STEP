@@ -38,6 +38,17 @@
             <br/><br/>
             <input type="submit"/>
       </form>
+      <br><br>
+      <form method="GET" action="/load">
+        <select name="num-comments" id="num-comments" onchange="loadLimitedComments()">
+            <option value="0">Select Number of Comments to Show</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+      </form>
       <ul id="greeting-container"><br/></ul>
       
     </div>

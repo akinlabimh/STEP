@@ -15,14 +15,48 @@
 function loadComments() {
   fetch('/load').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
     tasks.forEach((task) => {
       taskListElement.appendChild(createComment(task['title']));
-      //taskListElement.appendChild(createComment("\n"));
-      ///taskListElement.appendChild(createComment(task.text));
-      //response.getWriter().println(task.text);
+      //taskListElement.appendChild(createComment(nc));
     })
   });
 }
+
+function loadLimitedComments() {
+  fetch('/reload').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });
+}
+
+/*
+function loadLimitedComments() {
+  var num = 0;
+  fetch('/load').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //num = Integer.parseInt(document.getElementById('number').value);
+    //ftft = numComments;
+    //num = 3;
+
+    //for (i = 0; i < num; i++) {
+    //    taskListElement.appendChild(createComment(tasks.get(i)['title']));
+    //}
+
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      num++;
+      if (num == 3) {break;}
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });  
+}*/
 
 /** Creates an element that represents a task, including its delete button. */
 function createComment(text) {
