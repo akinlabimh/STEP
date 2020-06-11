@@ -24,16 +24,18 @@ function loadComments() {
   });
 }
 
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete-task', {method: 'POST', body: params});
+}
+
 function deleteComments() {
-  fetch('/delete-data').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('greeting-container');
-    //var nc = document.getElementById("num-comments").value;
-    
-    tasks.forEach((task) => {
-      taskListElement.removeChild();
+  tasks.forEach((task) => {
+      taskListElement.deleteTask((task['title']));
       //taskListElement.appendChild(createComment(nc));
     })
-  });
+  
 }
 
 /*function loadLimitedComments() {
