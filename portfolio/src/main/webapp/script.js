@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/** Creates comments as list items and puts them onto the page */
 function loadComments() {
   fetch('/load').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('greeting-container');
+    const taskListElement = document.getElementById('comment-container');
     //var nc = document.getElementById("num-comments").value;
     
     tasks.forEach((task) => {
@@ -24,12 +25,14 @@ function loadComments() {
   });
 }
 
+/** UNDER CONSTRUCTION */
 function deleteTask(task) {
   const params = new URLSearchParams();
   params.append('id', task.id);
   fetch('/delete-task', {method: 'POST', body: params});
 }
 
+/** UNDER CONSTRUCTION */
 function deleteComments() {
   tasks.forEach((task) => {
       taskListElement.deleteTask((task['title']));
