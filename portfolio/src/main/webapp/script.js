@@ -12,9 +12,74 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+function loadComments() {
+  fetch('/load').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });
+}
+
+function deleteComments() {
+  fetch('/delete-data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
+    tasks.forEach((task) => {
+      taskListElement.removeChild();
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });
+}
+
+/*function loadLimitedComments() {
+  fetch('/reload').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //var nc = document.getElementById("num-comments").value;
+    
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });
+}*/
+
+/*
+function loadLimitedComments() {
+  var num = 0;
+  fetch('/load').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('greeting-container');
+    //num = Integer.parseInt(document.getElementById('number').value);
+    //ftft = numComments;
+    //num = 3;
+
+    //for (i = 0; i < num; i++) {
+    //    taskListElement.appendChild(createComment(tasks.get(i)['title']));
+    //}
+
+    tasks.forEach((task) => {
+      taskListElement.appendChild(createComment(task['title']));
+      num++;
+      if (num == 3) {break;}
+      //taskListElement.appendChild(createComment(nc));
+    })
+  });  
+}*/
+
+/** Creates an element that represents a task, including its delete button. */
+function createComment(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
 /**
  * Adds a random greeting to the page.
- */
+ 
 function addRandomGreeting() {
   const greetings =
       ['Whats up?', 'lmao', 'this is fun so far', 'cant wait for CSS'];
@@ -27,6 +92,27 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
+function addQuoteToDomx(data) {
+  console.log('Adding quote to dom: ' + data);
 
+  const quoteContainer = document.getElementById('greeting-container');
+  quoteContainer.innerText = data;
+}
 
+function addQuoteToDom(data) {
+  fetch('/data').then(response => response.text()).then((data) => {
+    document.getElementById('greeting-container').innerText = data;
+  });
+}
 
+function getComments(data) {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('greeting-container').innerText = quote;
+  });
+}
+
+function getRandomQuoteUsingArrowFunctions() {
+  fetch('/random-quote').then(response => response.text()).then((quote) => {
+    document.getElementById('greeting-container').innerText = quote;
+  });
+}*/

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="loadComments()">
     <div id="content">
       <h1>Akin's Portfolio</h1>
       <div id="navigation">
@@ -19,16 +19,47 @@
         </ul>
       </div>
       <h2>HOME</h2>
-      <p>This is my portfolio.</p>
+      <p>Welcome to my portfolio!</p>
       <p>
         My name is Akin Mason-Hogans. I'm 20 years old. I'm from Durham, NC, and I attend
         North Carolina A&T University. I am currently interning for Google and having fun
         so far!
       </p>
       <img src="images/IMG_8458.jpeg" alt="Iconic Photo" style="width:350px;height:400px;">
+      <br/><br/>
       <!--<p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>-->
+      <button onclick="getComments()">Hello</button>
+      <!--<div id="greeting-container"></div>-->
+
+
+      <form method="POST" action="/add">
+            <p>Leave a comment below!</p>
+            <textarea name="text-input"></textarea>
+            <br/><br/>
+            <ul id="commentselector">
+                <li><p>How many comments do you want to load?     &nbsp;</p></li>
+                <li><textarea name="nclol" style="width:33px;height:40px;"></textarea></li>
+            </ul>
+            <br/><br/>
+            <input type="submit"/>
+      </form>
+      
+      <!--<form method="POST" action="/reload">
+        <select name="num-comments" id="num-comments" onchange="loadComments()">
+            <option value="0">Select Number of Comments to Show</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+        </select>
+        <br><br>
+        <input type="submit" id = "test" value="Submit">
+      </form>-->
+      <ul id="greeting-container"><br/></ul>
+      <!--<form method="POST" action="/add">
+            <input type="submit"/>
+      </form>
+      <!--<button onclick="deleteComments()" method="POST">Hello</button>-->
+      <br/><br/>
     </div>
   </body>
 </html>
