@@ -42,9 +42,12 @@ public class CDeleteServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //long id = Long.parseLong(request.getParameter("id"));
-    String id = request.getParameter("greeting-container");
-
+    long id = Long.parseLong(request.getParameter("id"));
+    String comment = request.getParameter("comment-container");
+    int z = 0;
+    String key = "Task" + z;
+    z++;
+    
     Key taskEntityKey = KeyFactory.createKey("Task", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.delete(taskEntityKey);

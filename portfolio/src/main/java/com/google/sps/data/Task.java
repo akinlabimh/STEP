@@ -20,10 +20,12 @@ public final class Task {
   private final long id;
   private final String title;
   private final long timestamp;
+  private final String email;
 
-  public Task(long id, String title, long timestamp) {
+  public Task(long id, String title, long timestamp, String email) {
     this.id = id;
     this.title = title;
     this.timestamp = timestamp;
+    this.email = email;
   }
 }

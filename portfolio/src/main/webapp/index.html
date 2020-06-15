@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="loadComments()">
+  <body onload="load()">
     <div id="content">
       <h1>Akin's Portfolio</h1>
       <div id="navigation">
@@ -30,9 +30,12 @@
       <!--<p>Click here to get a random message:</p>
       <button onclick="getComments()">Hello</button>
       <!--<div id="greeting-container"></div>-->
+      <div id="login-link" style="visibility:hidden">
+          <p>Click<a href="/logmein" style="color: #362d2d">here</a>to log in</p>
+      </div>
 
-
-      <form method="POST" action="/add">
+      <div id="comment-section" style="visibility:hidden">
+        <form method="POST" action="/add">
             <p>Leave a comment below!</p>
             <textarea name="text-input"></textarea>
             <br/><br/>
@@ -42,25 +45,20 @@
             </ul>
             <br/><br/>
             <input type="submit"/>
-      </form>
-      
-      <!--<form method="POST" action="/reload">
-        <select name="num-comments" id="num-comments" onchange="loadComments()">
-            <option value="0">Select Number of Comments to Show</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-            <option value="10">10</option>
-        </select>
-        <br><br>
-        <input type="submit" id = "test" value="Submit">
-      </form>-->
-      <ul id="comment-container"><br/></ul>
-      <!--<form method="POST" action="/add">
+        </form>
+        <ul id="comment-container"><br/></ul>
+        <br/><br/><br/>
+        <p>Click<a href="/logmein" style="color: #362d2d">here</a>to log out</p>
+      </div>
+      <!--<div id="login-link" style="visibility:hidden">
+          <p>Click<a href="/logmein" style="color: #362d2d">here</a>to log in</p>
+      </div>
+      <form method="POST" action="/add">
             <input type="submit"/>
       </form>-->
       <br/><br/>
-      <button onclick="deleteComments()" method="POST">Hello</button>
-      <br/><br/>
+      <!--<button onclick="deleteComments()" method="POST">Delete Comments</button>
+      <br/><br/>-->
     </div>
   </body>
 </html>

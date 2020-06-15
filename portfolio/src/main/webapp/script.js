@@ -12,6 +12,49 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+function load() {
+    fetch('/logincheck').then(response => response.json()).then((status) => {
+    console.log(status);
+    //window.alert(`gLS(): ${status}`);
+
+    if (status == 0) {
+        //window.alert(`if: ${status}`);
+        //window.alert(lstatus);
+        //window.alert("login");
+        //document.getElementById('comment-section').style.visibility="none";
+        document.getElementById('login-link').style.visibility="visible";
+    } else {
+        //document.getElementById('login-link').style.visibility="none";
+        document.getElementById('comment-section').style.visibility="visible";
+        loadComments();
+    }
+
+
+  });
+
+    
+    //loadComments();
+    //hideform();
+}
+
+/* /function load() {
+    const lstatus = getLoginStatus();
+    //window.alert(lstatus);
+    window.alert(`L(): ${lstatus}`);
+
+    if (lstatus == 0) {
+        window.alert(`if: ${lstatus}`);
+        //window.alert(lstatus);
+        //window.alert("login");
+        document.getElementById('comment-container').style.display="none";
+    } else {
+        loadComments();
+    }
+
+    //loadComments();
+    //hideform();
+}*/
+
 /** Creates comments as list items and puts them onto the page */
 function loadComments() {
   fetch('/load').then(response => response.json()).then((tasks) => {
@@ -19,61 +62,54 @@ function loadComments() {
     //var nc = document.getElementById("num-comments").value;
     
     tasks.forEach((task) => {
-      taskListElement.appendChild(createComment(task['title']));
+      taskListElement.appendChild(createComment(`${task['email']} says: ${task['title']}`));
       //taskListElement.appendChild(createComment(nc));
     })
   });
 }
+
+function getLoginStatus() {
+  fetch('/login').then(response => response.json()).then((status) => {
+    console.log(status);
+    window.alert(`gLS(): ${status}`);
+    //return status;
+    /** /console.log(status);
+    console.log(status);
+    console.log(status);
+    console.log(status);
+    //window.alert(status);
+    console.log(status);
+    console.log(status);
+    console.log(status);
+    const statusElement = document.getElementById('status-container');
+    //var nc = document.getElementById("num-comments").value;
+    const liElement = document.createElement('li');
+    liElement.innerText = status;
+    statusElement.appendChild(liElement);*/
+  });
+  return status;
+}    
+
 
 /** UNDER CONSTRUCTION */
 function deleteTask(task) {
   const params = new URLSearchParams();
-  params.append('id', task.id);
-  fetch('/delete-task', {method: 'POST', body: params});
+  params.append('comment', task.title);
+  fetch('/delete-data', {method: 'POST', body: params});
 }
 
 /** UNDER CONSTRUCTION */
 function deleteComments() {
-  tasks.forEach((task) => {
-      taskListElement.deleteTask((task['title']));
-      //taskListElement.appendChild(createComment(nc));
-    })
-  
-}
+  fetch('/load').then(response => response.json()).then((tasks) => {
+  const taskListElement = document.getElementById('comment-container');
 
-/*function loadLimitedComments() {
-  fetch('/reload').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('greeting-container');
-    //var nc = document.getElementById("num-comments").value;
-    
-    tasks.forEach((task) => {
-      taskListElement.appendChild(createComment(task['title']));
+  tasks.forEach(task => {
+      taskListElement.deleteTask(task);
       //taskListElement.appendChild(createComment(nc));
     })
   });
-}*/
+}
 
-/*
-function loadLimitedComments() {
-  var num = 0;
-  fetch('/load').then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('greeting-container');
-    //num = Integer.parseInt(document.getElementById('number').value);
-    //ftft = numComments;
-    //num = 3;
-
-    //for (i = 0; i < num; i++) {
-    //    taskListElement.appendChild(createComment(tasks.get(i)['title']));
-    //}
-
-    tasks.forEach((task) => {
-      taskListElement.appendChild(createComment(task['title']));
-      num++;
-      if (num == 3) {break;}
-      //taskListElement.appendChild(createComment(nc));
-    })
-  });  
-}*/
 
 /** Creates an element that represents a task, including its delete button. */
 function createComment(text) {
