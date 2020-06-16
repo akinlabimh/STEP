@@ -56,6 +56,8 @@ public class DataServlet extends HttpServlet {
     //Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     // Get the input from the form.
     String text = request.getParameter("text-input");
+    String languageCode = request.getParameter("language");
+    
     try {
         int plzjustwork = Integer.parseInt(request.getParameter("nclol"));
         ncInput = plzjustwork;
@@ -76,6 +78,7 @@ public class DataServlet extends HttpServlet {
         taskEntity.setProperty("text-input", text);
         taskEntity.setProperty("timestamp", timestamp);
         taskEntity.setProperty("email", userEmail);
+        taskEntity.setProperty("language", languageCode);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         //PreparedQuery results = datastore.prepare(query);
