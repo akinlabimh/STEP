@@ -34,11 +34,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/load")
 public class ListTasksServlet extends HttpServlet {
   public int numComments = 0;
+  
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -60,8 +64,18 @@ public class ListTasksServlet extends HttpServlet {
         long id = entity.getKey().getId();
         String title = (String) entity.getProperty("text-input");
         long timestamp = (long) entity.getProperty("timestamp");
+        String email = (String) entity.getProperty("email");
+        String languageCode = (String) entity.getProperty("language");
 
-        Task task = new Task(id, title, timestamp);
+        //String languageCode = request.getParameter("language").value;
+        //System.out.println(languageCode);
+
+        // Do the translation.
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Translation translation = translate.translate(title, Translate.TranslateOption.targetLanguage(languageCode));
+        title = translation.getTranslatedText();
+
+        Task task = new Task(id, title, timestamp, email, languageCode);
         tasks.add(task);
         //System.out.println(DataServlet.ncInput);
         i++;

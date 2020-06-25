@@ -62,14 +62,14 @@ p {
     color: #362d2d;
 }
 
-#greeting-container > ul {
+#comment-container > ul {
     display: block;
     align-items: right;
     list-style-type: none;
     list-style-position: inside;
 }
 
-#greeting-container > li {
+#comment-container > li {
   display: block;
   margin-top: 1px;
   color:#4dc3ff;

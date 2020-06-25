@@ -34,6 +34,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 
 
@@ -52,19 +56,30 @@ public class DataServlet extends HttpServlet {
     //Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     // Get the input from the form.
     String text = request.getParameter("text-input");
+    String languageCode = request.getParameter("language");
+    
     try {
         int plzjustwork = Integer.parseInt(request.getParameter("nclol"));
         ncInput = plzjustwork;
-        System.out.println(plzjustwork);
     } catch (NumberFormatException e) {
         ncInput = -1;
     }
     if (text.length() > 0) {
-        
+        //int z = 0;
+        //String key = "Task" + z;
+        //z++;
+        UserService userService = UserServiceFactory.getUserService();
+
         long timestamp = System.currentTimeMillis();
-        Entity taskEntity = new Entity("Task");
+        //Key taskEntityKey = KeyFactory.createKey("Task", id);
+        String userEmail = userService.getCurrentUser().getEmail();
+
+        Entity taskEntity = new Entity("Task"); 
         taskEntity.setProperty("text-input", text);
         taskEntity.setProperty("timestamp", timestamp);
+        taskEntity.setProperty("email", userEmail);
+        taskEntity.setProperty("language", languageCode);
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         //PreparedQuery results = datastore.prepare(query);
         datastore.put(taskEntity);
